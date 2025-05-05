@@ -2,7 +2,6 @@ import numpy as np
 
 def euler_method(h, y0, t0, t_k, f):
     
-    h = 0.1 #step size
     t = np.arange(t0, t_k + h, h)
     y = np.zeros(len(t))
     y[0] = y0 # Initial Condition
