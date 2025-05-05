@@ -1,10 +1,8 @@
 import numpy as np
 # funkcja wejsciowa Tm
 
-def sin_Tm(A, f):  
+def sin_Tm(A, f, dt, t_max):  
   # Parametry czasowe
-    t_max = 5         # czas symulacji (sekundy)
-    dt = 0.01         # krok czasowy
     t = np.arange(0, t_max, dt)
 
   # Pobudzenie: moment sinusoidalny
@@ -13,10 +11,8 @@ def sin_Tm(A, f):
 
     return t, Tm
 
-def rec_Tm(A,f):
+def rec_Tm(A,f, dt, t_max):
     # Parametry czasowe
-    t_max = 5         # czas symulacji (sekundy)
-    dt = 0.01         # krok czasowy
     t = np.arange(0, t_max, dt)
 
   # Pobudzenie: prostokątny okresowy
@@ -24,10 +20,8 @@ def rec_Tm(A,f):
     Tm = A * np.where(sin_val >= 0, 1, -1)
     return t, Tm
 
-def trian_Tm(A,f):
+def trian_Tm(A,f, dt, t_max):
     # Parametry czasowe
-    t_max = 5         # czas symulacji (sekundy)
-    dt = 0.01         # krok czasowy
     t = np.arange(0, t_max, dt)
 
     T = 1/f
@@ -37,10 +31,8 @@ def trian_Tm(A,f):
 
     return t, Tm
     
-def rec_imp_Tm(A):
+def rec_imp_Tm(A, dt, t_max):
     # Parametry czasowe
-    t_max = 5         # czas symulacji (sekundy)
-    dt = 0.01         # krok czasowy
     t = np.arange(0, t_max, dt)
     t_0=0
     T = 2
@@ -49,10 +41,8 @@ def rec_imp_Tm(A):
 
     return t, Tm
 
-def trian_imp_Tm(A):
+def trian_imp_Tm(A, dt, t_max):
     # Parametry czasowe
-    t_max = 5         # czas symulacji (sekundy)
-    dt = 0.01         # krok czasowy
     t = np.arange(0, t_max, dt)
     t_0=0
     T = 2
