@@ -1,7 +1,10 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import function_gen as fun
 import RK4_method as rk
+import euler_method as eum
+from end_fun import end_fun
+from drawing_input import drawing_input
+from drawing_output import drawing_output
 # Przekładnia model
 
 #Zmienne
@@ -30,16 +33,18 @@ t=t0=0
 tk = float(input("Podaj wartosc tk (czas symulacji) [s]: "))
 dt = float(input("Podaj dt (dlugosc kroku) [s]: "))
 
+ # Pobranie sygnału wejciowego
+signal_type = input("Podaj typ sygnału: ")
 
-ts, Tm_tab = fun.sin_Tm(1,1, tk, dt) #przykładowe na razie
-y = np.array([0, 0]) #potem z poziomu konsoli bedzie mozna wprowadzic warunki poczatkowe
+
+ts, Tm_tab = fun.sin_Tm(1, 1, dt, tk)
+y_eum = np.array([0, 0])      # dla Eulera
+y_rk = np.array([0, 0])   # osobna kopia dla RK4
 times = []
-phis = []
-omegas = []
- # Możliwe zmiany!!!!!!!!!!
-""" 
-    Możliwe, że zamiast podawania danych z konsoli, zrobimy cos ciekawszego, ale czas pokaze
-"""
+phis_eum = []
+phis_rk = []
+omegas_eum = []
+omegas_rk = []
 
 Jeq = J1 + J2*(n1/n2)**2
 beq = b1 + b2*(n1/n2)**2
@@ -54,21 +59,31 @@ print("beq [Nm]:", beq)
     fi'= w
     w' = fi'' = 1/Jeq*(Tm(t) - w*beq) 
 """
-def end_fun(t, y):
-    i = int(t / dt)
-    if i >= len(Tm_tab):
-        Tm = Tm_tab[-1]
-    else:
-        Tm = Tm_tab[i]
-    phi = y[0]
-    w = y[1]
-    dphi = w
-    dw = (Tm - beq * w) / Jeq
-    return np.array([dphi, dw])
+
+def result(t, y):
+    return end_fun(t, y, dt, Tm_tab, Jeq, beq)
 
 while t<=tk:
+    
     times.append(t)
-    phis.append(y[0])
-    omegas.append(y[1])
-    y=rk.rk4(end_fun, t, y, dt)
-    t=t+dt
+    
+    # metoda Eulera
+    phis_eum.append(y_eum[0])
+    omegas_eum.append(y_eum[1])
+
+    # metoda RK4 
+    phis_rk.append(y_rk[0])
+    omegas_rk.append(y_rk[1])
+
+    # wykonaj krok dla Eulera i RK4
+    y_eum = eum.euler_method(dt, y_eum, t, end_fun)
+    y_rk = rk.rk4(end_fun, t, y_rk, dt)
+    
+    t = t + dt
+
+# Rysowanie sygnału wejsciowego
+drawing_input(ts, Tm_tab, signal_type, ylabel=f'Wartosc {signal_type}')
+
+# Rysowanie sygnałów wyjsciowych
+drawing_output(times, phis_eum, phis_rk, 'phi')
+drawing_output(times, omegas_eum, omegas_rk, 'omega')
