@@ -33,24 +33,26 @@ t=t0=0
 tk = float(input("Podaj wartosc tk (czas symulacji) [s]: "))
 dt = float(input("Podaj dt (dlugosc kroku) [s]: "))
 
+A = float(input("Podaj amplitude wejścia: "))
+f = float(input("Podaj częstotliwość wejścia [Hz]: "))
  # Pobranie sygnału wejciowego
 while(True):
     signal_type = input("Podaj typ sygnału: ")
 
     if signal_type == 'sinus':
-        ts, Tm_tab = fun.sin_Tm(1, 1, dt, tk)
+        ts, Tm_tab = fun.sin_Tm(A, f, dt, tk)
         break
     elif signal_type == 'triangle':
-        ts, Tm_tab = fun.trian_Tm(1, 1, dt, tk)
+        ts, Tm_tab = fun.trian_Tm(A, f, dt, tk)
         break
     elif signal_type == 'rect':
-        ts, Tm_tab = fun.rect_Tm(1, 1, dt, tk)
+        ts, Tm_tab = fun.rec_Tm(A, f, dt, tk)
         break
     elif signal_type == 'rect_imp':
-        ts, Tm_tab = fun.rec_imp_Tm(1, 1, dt, tk)
+        ts, Tm_tab = fun.rec_imp_Tm(A, dt, tk)
         break
     elif signal_type == 'trian_imp':
-        ts, Tm_tab = fun.trian_imp_Tm(1, 1, dt, tk)
+        ts, Tm_tab = fun.trian_imp_Tm(A, dt, tk)
         break
     else:
         continue
