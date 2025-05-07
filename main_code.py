@@ -34,10 +34,27 @@ tk = float(input("Podaj wartosc tk (czas symulacji) [s]: "))
 dt = float(input("Podaj dt (dlugosc kroku) [s]: "))
 
  # Pobranie sygnału wejciowego
-signal_type = input("Podaj typ sygnału: ")
+while(True):
+    signal_type = input("Podaj typ sygnału: ")
 
-
-ts, Tm_tab = fun.sin_Tm(1, 1, dt, tk)
+    if signal_type == 'sinus':
+        ts, Tm_tab = fun.sin_Tm(1, 1, dt, tk)
+        break
+    elif signal_type == 'triangle':
+        ts, Tm_tab = fun.trian_Tm(1, 1, dt, tk)
+        break
+    elif signal_type == 'rect':
+        ts, Tm_tab = fun.rect_Tm(1, 1, dt, tk)
+        break
+    elif signal_type == 'rect_imp':
+        ts, Tm_tab = fun.rec_imp_Tm(1, 1, dt, tk)
+        break
+    elif signal_type == 'trian_imp':
+        ts, Tm_tab = fun.trian_imp_Tm(1, 1, dt, tk)
+        break
+    else:
+        continue
+#ts, Tm_tab = fun.sin_Tm(1, 1, dt, tk)
 y_eum = np.array([0, 0])      # dla Eulera
 y_rk = np.array([0, 0])   # osobna kopia dla RK4
 times = []
@@ -76,8 +93,8 @@ while t<=tk:
     omegas_rk.append(y_rk[1])
 
     # wykonaj krok dla Eulera i RK4
-    y_eum = eum.euler_method(dt, y_eum, t, end_fun)
-    y_rk = rk.rk4(end_fun, t, y_rk, dt)
+    y_eum = eum.euler_method(dt, y_eum, t, result)
+    y_rk = rk.rk4(result, t, y_rk, dt)
     
     t = t + dt
 
