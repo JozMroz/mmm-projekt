@@ -15,3 +15,4 @@ def drawing_output(times, eum, rk, output_thing):
 
     plt.legend()
     plt.grid(True)
+    plt.show()
