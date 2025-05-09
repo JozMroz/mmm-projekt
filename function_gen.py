@@ -31,21 +31,19 @@ def trian_Tm(A,f, dt, t_max):
 
     return t, Tm
     
-def rec_imp_Tm(A, dt, t_max):
+def rec_imp_Tm(A, dt, t_max, T):
     # Parametry czasowe
     t = np.arange(0, t_max, dt)
     t_0=0
-    T = 2
     # Pobudzenie: prostokątny impuls
     Tm = A*np.where((t >= t_0) & (t <= t_0+T), 1, 0)
 
     return t, Tm
 
-def trian_imp_Tm(A, dt, t_max):
+def trian_imp_Tm(A, dt, t_max, T):
     # Parametry czasowe
     t = np.arange(0, t_max, dt)
     t_0=0
-    T = 2
     t_mod = np.mod(t - t_0, T)
     # Pobudzenie: prostokątny impuls
     signal = A*(1-2*np.abs(t_mod/T-0.5)) # to samo co w okresowym, ale 2, bo na krńcach jest równe 0
