@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 
 def drawing_input(x, y, signal_type, ylabel='Input [-]'):
+    plt.figure()
     plt.plot(x, y)
     plt.xlabel('Time [s]')
     plt.ylabel(ylabel)
@@ -17,4 +18,4 @@ def drawing_input(x, y, signal_type, ylabel='Input [-]'):
         plt.title('Triangular impulse function')
     else:
         plt.title('System Response')
-    plt.show()
+    
