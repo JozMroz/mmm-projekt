@@ -170,7 +170,7 @@ entry_dt = ttk.Entry(frame)
 entry_dt.grid(column=1, row=7)
 
 signal_var = tk.StringVar(value="sinus")
-signal_menu = ttk.OptionMenu(frame, signal_var, "sinus", "triangle", "rect", "rect_imp", "trian_imp")
+signal_menu = ttk.OptionMenu(frame, signal_var, "sinus", "sinus", "triangle", "rect", "rect_imp", "trian_imp")
 signal_menu.grid(column=1, row=8)
 
 label_A = ttk.Label(frame, text="Amplituda:")
